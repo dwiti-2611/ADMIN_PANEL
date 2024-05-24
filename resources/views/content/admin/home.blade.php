@@ -6,6 +6,20 @@
 <!-- Page -->
 <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+<style>
+  .note-box {
+    border: 1px solid red;
+    background-color: #fff0f0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .note-text {
+    margin: 0;
+    color: red;
+    font-weight: 300;
+    font-size: 0.875rem;
+  }
+</style>
 @endsection
 
 @section('content')
@@ -71,6 +85,9 @@
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+          <div class="note-box mt-2">
+            <p class="note-text">Your password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.</p>
           </div>
           <div class="mb-3">
             <label for="password_confirmation" class="form-label">Confirm Password</label>
