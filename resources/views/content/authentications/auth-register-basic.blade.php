@@ -102,6 +102,10 @@
       return this.optional(element) || !existingEmails.includes(value);
     }, "This email is already registered");
 
+    jQuery.validator.addMethod("passwordFormat", function(value, element) {
+    return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value);
+    }, "Your password must 8 characters long and must be in the format that include at least one uppercase letter, one lowercase letter, one digit, and one special character");
+
     $('#formAuthentication').validate({
       rules: {
         name: {
@@ -117,7 +121,7 @@
         password: {
           required: true,
           minlength: 8,
-          pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+          passwordFormat: true
         },
         password_confirmation: {
           required: true,
@@ -138,7 +142,7 @@
         password: {
           required: "Please enter your password",
           minlength: "Your password must be at least 8 characters long",
-          pattern: "Your password must include at least one uppercase letter, one lowercase letter, one digit, and one special character"
+          passwordFormat: "Your password must include at least one uppercase letter, one lowercase letter, one digit, and one special character",
         },
         password_confirmation: {
           required: "Please confirm your password",
