@@ -74,6 +74,6 @@ Route::middleware(['auth'])->group(function () {
 
   Route::get('/user/change-password', [UserController::class, 'showChangePasswordForm'])->name('user.ChangePassword');
   Route::post('/user/change-password', [UserController::class, 'changePassword'])->name('user.ChangePassword.post');
-  Route::post('/verify-password', [UserController::class, 'verifyPassword'])->name('user.verifyPassword');
+  Route::post('/user/verify-password', [UserController::class, 'verifyPassword'])->name('user.verifyPassword');
   Route::post('/verify-password', [UserController::class, 'verifyPassword'])->name('admin.verifyPassword');
 });
