@@ -6,6 +6,16 @@
 <!-- Page -->
 <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+<style>
+  .position-absolute-upper-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  .card-body {
+    position: relative; /* Ensure the card body is the positioning context */
+  }
+</style>
 @endsection
 
 @section('content')
@@ -19,6 +29,7 @@
             <p>{{ $message }}</p>
           </div>
         @endif
+        <a href="{{ route('admin.profile') }}" class="btn btn-primary position-absolute-upper-right">Profile Page</a>
         <form id="change-password-form" action="{{ route('user.ChangePassword.post') }}" method="POST">
           @csrf
           <div class="form-group">
