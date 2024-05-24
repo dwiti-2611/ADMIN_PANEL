@@ -6,7 +6,22 @@
 <!-- Page -->
 <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+<style>
+  .note-box {
+    border: 1px solid red;
+    background-color: #fff0f0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .note-text {
+    margin: 0;
+    color: red;
+    font-weight: 300;
+    font-size: 0.875rem;
+  }
+</style>
 @endsection
+
 @section('content')
 <div class="container-xxl">
   <div class="authentication-wrapper authentication-basic container-p-y">
@@ -37,12 +52,15 @@
               <div class="mb-3">
                 <label class="form-label" for="password">Password</label>
                 <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                <div class="note-box mt-2">
+                  <p class="note-text">Your password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.</p>
+                </div>
               </div>
               <div class="mb-3">
                   <label class="form-label" for="password_confirmation">Confirm Password</label>
                   <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password_confirmation" />
               </div>
-              <button class="btn btn-primary d-grid w-100" type="submit">
+              <button id="submitBtn" class="btn btn-primary d-grid w-100" type="submit">
                   Sign up
               </button>
           </form>
@@ -60,6 +78,8 @@
     </div>
   </div>
 </div>
+@endsection
+
 @section('page-script')
 <!-- jQuery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -79,10 +99,10 @@
 
     // Custom method to validate email uniqueness
     jQuery.validator.addMethod("uniqueEmail", function(value, element) {
-    return this.optional(element) || !existingEmails.includes(value);
+      return this.optional(element) || !existingEmails.includes(value);
     }, "This email is already registered");
 
-    jQuery('#formAuthentication').validate({
+    $('#formAuthentication').validate({
       rules: {
         name: {
           required: true,
@@ -108,7 +128,7 @@
         name: {
           required: "Please enter your username",
           lettersOnly: "Please enter letters only",
-          minlength: "The name should be atleast 3 letters"
+          minlength: "The name should be at least 3 letters"
         },
         email: {
           required: "Please enter your email address",
@@ -130,11 +150,22 @@
       errorPlacement: function(error, element) {
         error.insertAfter(element);
       },
+      onfocusout: function(element) {
+        $(element).valid();
+      },
+      invalidHandler: function(event, validator) {
+        // Display alert on invalid submission
+        alert('Please correct the errors in the form!');
+      },
       submitHandler: function(form) {
+        // Optionally handle successful validation before form submission
         form.submit();
       }
     });
+
+    $('#submitBtn').click(function() {
+      $('#formAuthentication').submit();
+    });
   });
 </script>
-@endsection
 @endsection
