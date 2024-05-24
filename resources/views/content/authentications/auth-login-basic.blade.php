@@ -10,7 +10,6 @@
   .error {
     color: #dc3545;
   }
-
 </style>
 @endsection
 
@@ -49,7 +48,7 @@
             @csrf
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus>
+              <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Enter your email" autofocus>
             </div>
             <div class="mb-3">
               <label class="form-label" for="password">Password</label>

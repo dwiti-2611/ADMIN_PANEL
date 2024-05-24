@@ -17,14 +17,24 @@ class LoginBasic extends Controller
 
   public function login(Request $request): RedirectResponse
   {
-    $input = $request->all();
+    $input = $request->only('email', 'password');
 
     $this->validate($request, [
-      'email' => 'required|email|exists:users,email',
+      'email' => 'required|email',
       'password' => 'required',
     ]);
 
-    if (Auth::attempt(['email' => $input['email'], 'password' => $input['password']])) {
+    // Check if the email exists in the database
+    $userExists = \App\Models\User::where('email', $input['email'])->exists();
+
+    if (!$userExists) {
+      return redirect()
+        ->back()
+        ->withErrors(['email' => 'The email address is not registered.'])
+        ->withInput($request->only('email'));
+    }
+
+    if (Auth::attempt($input)) {
       $user = Auth::user();
 
       if ($user->type == 'admin') {
@@ -39,7 +49,8 @@ class LoginBasic extends Controller
     } else {
       return redirect()
         ->back()
-        ->withErrors(['email' => 'Invalid Password or EmailAddress']);
+        ->withErrors(['password' => 'The password is incorrect.'])
+        ->withInput($request->only('email'));
     }
   }
 
