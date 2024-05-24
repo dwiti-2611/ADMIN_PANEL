@@ -15,6 +15,18 @@
   .card-body {
     position: relative; /* Ensure the card body is the positioning context */
   }
+  .note-box {
+    border: 1px solid red;
+    background-color: #fff0f0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .note-text {
+    margin: 0;
+    color: red;
+    font-weight: 300;
+    font-size: 0.875rem;
+  }
 </style>
 @endsection
 
@@ -39,6 +51,9 @@
           <div class="form-group">
             <label for="new_password">New Password</label>
             <input type="password" class="form-control" id="new_password" name="new_password" required>
+          </div>
+          <div class="note-box mt-2">
+            <p class="note-text">Your password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.</p>
           </div>
           <div class="form-group">
             <label for="new_password_confirmation">Confirm New Password</label>

@@ -62,7 +62,7 @@
 
     // Custom method to validate email uniqueness
     jQuery.validator.addMethod("uniqueEmail", function(value, element) {
-    return this.optional(element) || !existingEmails.includes(value);
+      return this.optional(element) || !existingEmails.includes(value);
     }, "This email is already registered");
 
     // Hide success alert after 3 seconds
@@ -101,6 +101,10 @@
       errorPlacement: function(error, element) {
         error.insertAfter(element);
       },
+      // Adding onkeyup, onfocusout and onclick handlers for real-time validation
+      onkeyup: function(element) { $(element).valid(); },
+      onfocusout: function(element) { $(element).valid(); },
+      onclick: function(element) { $(element).valid(); },
       submitHandler: function(form) {
         form.submit();
       }
